@@ -13,17 +13,14 @@ test = data[-id,]
 #Training data 
 g = glm(Spam~.,data=train)
 pred = ifelse(predict(g)>0.5,1,0)
-
 conf_matrix = table(pred, unlist(train[,49]))
 mrate = 1 - (sum(diag(conf_matrix))/sum(conf_matrix))
 
 #Test data
-g = glm(Spam~.,data=test)
-pred = ifelse(predict(g)>0.5,1,0)
-#pred = ifelse(pred > 0.5, 1, 0) 
-
+pred = ifelse(predict(g, newdata=test)>0.5,1,0)
 conf_matrix = table(pred, unlist(test[,49]))
 mrate = 1 - (sum(diag(conf_matrix))/sum(conf_matrix))
+conf_matrix
 
 #3.
 #Training data
@@ -34,9 +31,7 @@ conf_matrix = table(pred, unlist(train[,49]))
 mrate = 1 - (sum(diag(conf_matrix))/sum(conf_matrix))
 
 # Test data
-g = glm(Spam~.,data=test)
-pred = ifelse(predict(g)>0.8,1,0)
-
+pred = ifelse(predict(g, newdata = test)>0.8,1,0)
 conf_matrix = table(pred, unlist(test[,49]))
 mrate = 1 - (sum(diag(conf_matrix))/sum(conf_matrix))
 
