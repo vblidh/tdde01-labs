@@ -5,9 +5,9 @@ library("readxl")
 library("ggplot2")
 set.seed(12345)
 RNGversion('3.5.1')
-#setwd("C:\\Users\\Victor\\Documents\\R Projects\\tdde01-labs\\LAB2")
+setwd("C:\\Users\\Victor\\Documents\\R Projects\\tdde01-labs\\LAB2")
 
-data2 = read_excel("creditscoring.xls")
+#data2 = read_excel("creditscoring.xls") Fuck xls files
 data = read.csv("creditscoring.csv")
 
 n=dim(data)[1]
@@ -57,7 +57,7 @@ points(2:15, testScore[2:15], type="b", col="blue")
 finalTree=prune.tree(fit, best=4)
 finalTree.pred.class=predict(finalTree, newdata=test,
              type="class")
-finalTree.cm = table(test$good_bad,Yfit)
+finalTree.cm = table(test$good_bad,finalTree.pred.class)
 finalTree.me = 1 - sum(diag(finalTree.cm))/(sum(finalTree.cm))
 
 #4
@@ -75,10 +75,12 @@ naiveBayes.me.test =
 
 Compute_TPR_FPR = function(prediction){
   pi_vector = seq(0.05, 0.95, 0.05)
-  TPR_vector = rep(0, length(pi_vector))
-  FPR_vector = rep(0, length(pi_vector))
+  TPR_vector = rep(1, length(pi_vector))
+  FPR_vector = rep(1, length(pi_vector))
   N.tot = length(which(test$good_bad == "bad"))
+  print(N.tot)
   P.tot = length(which(test$good_bad == "good"))
+  print(P.tot)
   for (i in 1:length(pi_vector)){
     classification = ifelse(prediction[,2] > pi_vector[i], "good", "bad")
     
@@ -110,11 +112,14 @@ ggplot(data = NULL, aes(col="classifier")) +
 
 
 #6
+L = matrix(c(0,10,1,0),nrow = 2, ncol = 2)
 
 naiveBayes.pred.train.numeric = 
   predict(naiveBayes.fit, newdata = train, type="raw")
-L = matrix(c(0,10,1,0),nrow = 2, ncol = 2)
-naiveBayes.pred.train.loss = 
-  ifelse(naiveBayes.pred.train.numeric[,2]/naiveBayes.pred.train.numeric[1,]
-         > (L[2,1]/L[1,2]), "good", "bad")
+naiveBayes.pred.test.numeric = 
+  predict(naiveBayes.fit, newdata = test, type="raw")
 
+naiveBayes.pred.train.loss = 
+  ifelse(L[1,2]*naiveBayes.pred.train.numeric[,2] > 
+           L[2,1]*naiveBayes.pred.train.numeric[,1], "good","bad")
+naiveBayes.train.loss.cm = table(train$good_bad, naiveBayes.pred.train.loss)
