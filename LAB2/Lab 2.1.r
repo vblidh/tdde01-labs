@@ -5,6 +5,7 @@ RNGversion('3.5.1')
 setwd("C:\\Users\\Victor\\Documents\\R Projects\\tdde01-labs\\LAB2")
 #1
 
+
 data = read.csv("australian-crabs.csv")
 p1 = ggplot(data=data, mapping = aes(CL, RW, color=sex)) + geom_point() +
   ggtitle("Original graph")
