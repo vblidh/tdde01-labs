@@ -5,8 +5,8 @@ library("readxl")
 library("ggplot2")
 set.seed(12345)
 RNGversion('3.5.1')
-setwd("C:\\Users\\Victor\\Documents\\R Projects\\tdde01-labs\\LAB2")
-
+#setwd("C:\\Users\\Victor\\Documents\\R Projects\\tdde01-labs\\LAB2")
+setwd("/home/vikbl327/Courses/TDDE01/tdde01-labs/LAB2")
 #data2 = read_excel("creditscoring.xls") Fuck xls files
 data = read.csv("creditscoring.csv")
 
@@ -118,6 +118,11 @@ naiveBayes.pred.train.numeric =
   predict(naiveBayes.fit, newdata = train, type="raw")
 naiveBayes.pred.test.numeric = 
   predict(naiveBayes.fit, newdata = test, type="raw")
+
+naiveBayes.pred.test.loss = 
+  ifelse(L[1,2]*naiveBayes.pred.test.numeric[,2] > 
+           L[2,1]*naiveBayes.pred.test.numeric[,1], "good","bad")
+naiveBayes.test.loss.cm = table(test$good_bad, naiveBayes.pred.test.loss)
 
 naiveBayes.pred.train.loss = 
   ifelse(L[1,2]*naiveBayes.pred.train.numeric[,2] > 
