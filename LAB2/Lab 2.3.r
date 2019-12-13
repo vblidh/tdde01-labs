@@ -2,13 +2,13 @@ library("ggplot2")
 library("fastICA")
 RNGversion('3.5.1')
 set.seed(12345)
-#setwd("C:\\Users\\Victor\\Documents\\R Projects\\tdde01-labs\\LAB2")
-setwd("/home/vikbl327/Courses/TDDE01/tdde01-labs/LAB2")
+setwd("C:\\Users\\Victor\\Documents\\R Projects\\tdde01-labs\\LAB2")
+#setwd("/home/vikbl327/Courses/TDDE01/tdde01-labs/LAB2")
 
 data = read.csv2("NIRSpectra.csv")
 
 #1
-PCA.fit = prcomp(x=data[1:126], scale. = TRUE)
+PCA.fit = prcomp(x=data[1:126], scale. = FALSE)
 plot(PCA.fit)
 summary(PCA.fit)
 

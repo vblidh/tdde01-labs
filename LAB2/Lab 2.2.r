@@ -5,8 +5,8 @@ library("readxl")
 library("ggplot2")
 set.seed(12345)
 RNGversion('3.5.1')
-#setwd("C:\\Users\\Victor\\Documents\\R Projects\\tdde01-labs\\LAB2")
-setwd("/home/vikbl327/Courses/TDDE01/tdde01-labs/LAB2")
+setwd("C:\\Users\\Victor\\Documents\\R Projects\\tdde01-labs\\LAB2")
+#setwd("/home/vikbl327/Courses/TDDE01/tdde01-labs/LAB2")
 #data2 = read_excel("creditscoring.xls") Fuck xls files
 data = read.csv("creditscoring.csv")
 
