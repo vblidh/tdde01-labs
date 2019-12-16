@@ -1,8 +1,8 @@
 library("geosphere")
 RNGversion("3.5.1")
 set.seed(12345)
-#setwd("/home/vikbl327/Courses/TDDE01/tdde01-labs/LAB3/")
-setwd("C:\\Users\\Victor\\Documents\\R Projects\\tdde01-labs\\LAB3")
+setwd("/home/vikbl327/Courses/TDDE01/tdde01-labs/LAB3/")
+#setwd("C:\\Users\\Victor\\Documents\\R Projects\\tdde01-labs\\LAB3")
 
 
 stations <- read.csv("stations.csv", sep = ",")
@@ -14,7 +14,7 @@ n = dim(st)[1]
 ############################Chosen values###############################
 lat <- 59.548941 
 long <- 13.127118
-date = "2017-12-31"
+date = "2019-12-31"
 date.numeric = as.integer(unlist(strsplit(date, "-")))
 as.character.Date(st$date)
 t = as.character(seq(4,24, 2))
@@ -34,10 +34,10 @@ m = matrix(c(st$latitude, st$longitude), ncol=2)
 distances = distHaversine(c(lat, long), m)
 date_diffs = as.numeric(difftime(date, st$date),units = "days") %% 365
 kernel.dist = kernel_function(distances, h_distance)
-#plot(distances, kernel.dist)
+plot(distances, kernel.dist)
 
 kernel.dates = kernel_function(date_diffs, h_date)
-#plot(date_diffs, kernel.dates)
+plot(date_diffs, kernel.dates)
 
 timestamps = as.POSIXct(st$time, format="%H:%M:%S")
 
@@ -49,7 +49,9 @@ for (i in 1:length(times)){
   temp[i] = sum(k*st$air_temperature)/sum(k)
 }
 
-plot(seq(4,24,2), temp)
+plot(seq(4,24,2), temp, col="blue", 
+     main = "Predicted temperatures for 2019-12-31", xlab = "Time of day",
+     ylab = "Temperature")
 
 
 
