@@ -12,9 +12,9 @@ n = dim(st)[1]
 
 
 ############################Chosen values###############################
-lat <- 59.548941 
-long <- 13.127118
-date = "2019-12-31"
+lat <- 58.6462
+long <- 15.5748
+date = "2019-12-24"
 t = as.character(seq(4,24, 2))
 times = strptime(paste(t, ":00:00", sep=""), format = "%T")
 h_distance <-400000 
@@ -24,11 +24,11 @@ h_time <-3
 
 kernel_function <- function(deltas, h){
   u = deltas/h
-  k = exp(-u^2)
+  k = exp(-(u^2))
 }
 temp <- vector(length=length(times))
-m = matrix(c(st$latitude, st$longitude), ncol=2)
-distances = distHaversine(c(lat, long), m)
+m = matrix(c(st$longitude, st$latitude), ncol=2)
+distances = distHaversine(c(long, lat), m)
 date_diffs = as.numeric(difftime(date, st$date),units = "days") %% 365
 kernel.dist = kernel_function(distances, h_distance)
 plot(distances, kernel.dist)

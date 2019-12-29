@@ -11,30 +11,30 @@ test = data[-id,]
 
 #2.
 #Training data 
-g = glm(Spam~.,data=train)
-pred = ifelse(predict(g)>0.5,1,0)
+g = glm(Spam~.,data=train, family = binomial)
+pred = ifelse(predict(g, type = "response")>0.5,1,0)
 conf_matrix = table(pred, unlist(train[,49]))
 mrate = 1 - (sum(diag(conf_matrix))/sum(conf_matrix))
-
+conf_matrix
 #Test data
-pred = ifelse(predict(g, newdata=test)>0.5,1,0)
+pred = ifelse(predict(g, newdata=test, type = "response")>0.5,1,0)
 conf_matrix = table(pred, unlist(test[,49]))
 mrate = 1 - (sum(diag(conf_matrix))/sum(conf_matrix))
 conf_matrix
 
 #3.
 #Training data
-g = glm(Spam~.,data=train)
-pred = ifelse(predict(g)>0.8,1,0)
+g = glm(Spam~.,data=train, family = binomial)
+pred = ifelse(predict(g, type = "response")>0.8,1,0)
 
 conf_matrix = table(pred, unlist(train[,49]))
 mrate = 1 - (sum(diag(conf_matrix))/sum(conf_matrix))
 
 # Test data
-pred = ifelse(predict(g, newdata = test)>0.8,1,0)
+pred = ifelse(predict(g, newdata = test, type = "response")>0.8,1,0)
 conf_matrix = table(pred, unlist(test[,49]))
 mrate = 1 - (sum(diag(conf_matrix))/sum(conf_matrix))
-
+conf_matrix
 #4
 kknn.k30.test = kknn(formula=as.factor(Spam)~., train=train, test=test, k=30)
 kknn.k30.train = kknn(formula=as.factor(Spam)~., train=train, test=train, k=30)

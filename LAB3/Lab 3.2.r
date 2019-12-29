@@ -26,5 +26,3 @@ plot(nn <- neuralnet(Sin~Var, data = tr, threshold = 4/1000, startweights =
 ## Plot of the predictions (black dots) and the data (red dots)
 plot(prediction(nn)$rep1, col="black")
 points(trva, col="red")
-
-  
