@@ -17,12 +17,12 @@ for (i in 1:10){
   MSE[i] = mean((pred-va$Sin)^2)
 }
 
-plot(1:10, MSE, col="Blue", main = "MSE for different thresholds", 
+plot(1:10, MSE, col="blue", main = "MSE for different thresholds", 
      xlab = "Threshold * 1000")
+lines(1:10, MSE, col="Blue")
 
 plot(nn <- neuralnet(Sin~Var, data = tr, threshold = 4/1000, startweights = 
                         winit, hidden = c(10)))
 ## Plot of the predictions (black dots) and the data (red dots)
-plot(prediction(nn)$rep1)
+plot(prediction(nn)$rep1, col="black")
 points(trva, col="red")
-
