@@ -49,12 +49,3 @@ plot(seq(4,24,2), temp, col="blue",
      main = "Predicted temperatures for 2019-12-31", xlab = "Time of day",
      ylab = "Temperature")
 lines(seq(4,24,2), temp, col="blue")
->>>>>>> a6188615d1f17b3259b52f2c45d1c88afbb553da
-
-
-
-
-
-
-
-
