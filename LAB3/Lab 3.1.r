@@ -44,14 +44,14 @@ timestamps = as.POSIXct(st$time, format="%H:%M:%S")
 for (i in 1:length(times)){
   timediffs = abs(as.numeric(difftime(times[i], timestamps), units = "hours"))
   kernel.time = kernel_function(timediffs, h_time)
-  k = kernel.dist*kernel.dates*kernel.time
+  k = kernel.dist+kernel.dates+kernel.time
   #plot(timediffs, kernel.time)
   temp[i] = sum(k*st$air_temperature)/sum(k)
 }
 
 plot(seq(4,24,2), temp, col="blue", 
-     main = "Predicted temperatures for 2019-12-31", xlab = "Time of day",
-     ylab = "Temperature")
+     main = "Predicted temperatures for 2019-12-31 with sum of kernels", 
+     xlab = "Time of day", ylab = "Temperature")
 
 
 
